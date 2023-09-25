@@ -103,8 +103,8 @@ def rollout(policy, env_name, max_path, num_data, random=False):
         traj_data['rewards'].append(rew)
         traj_data['terminals'].append(terminal)
         traj_data['timeouts'].append(timeout)
-        print(logprob)
-        traj_data['logprobs'].append(logprob.detach())
+        #print(logprob)
+        traj_data['logprobs'].append(logprob.detach()[0])
         traj_data['qpos'].append(qpos)
         traj_data['qvel'].append(qvel)
 
