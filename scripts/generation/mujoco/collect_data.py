@@ -151,7 +151,7 @@ if __name__ == "__main__":
     policy = None
     if not args.random:
         policy = load(args.pklfile)
-    policy.to("CPU")
+    policy.to("cpu")
     data = rollout(policy, args.env, max_path=args.max_path, num_data=args.num_data, random=args.random)
 
     hfile = h5py.File(args.output_file, 'w')
