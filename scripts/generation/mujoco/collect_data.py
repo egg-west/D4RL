@@ -116,14 +116,14 @@ def rollout(policy, env_name, max_path, num_data, random=False):
             for k in data:
                 data[k].extend(traj_data[k])
             traj_data = get_reset_data()
-    
+
     new_data = dict(
         observations=np.array(data['observations']).astype(np.float32),
         actions=np.array(data['actions']).astype(np.float32),
         next_observations=np.array(data['next_observations']).astype(np.float32),
         rewards=np.array(data['rewards']).astype(np.float32),
-        terminals=np.array(data['terminals']).astype(np.bool),
-        timeouts=np.array(data['timeouts']).astype(np.bool)
+        terminals=np.array(data['terminals']).astype(bool),#.astype(np.bool),
+        timeouts=np.array(data['timeouts']).astype(bool),#.astype(np.bool),
     )
     new_data['infos/action_log_probs'] = np.array(data['logprobs']).astype(np.float32)
     new_data['infos/qpos'] = np.array(data['qpos']).astype(np.float32)
@@ -137,7 +137,7 @@ def rollout(policy, env_name, max_path, num_data, random=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('env', type=str)
+    parser.add_argument('--env', type=str, default="")
     parser.add_argument('--pklfile', type=str, default=None)
     parser.add_argument('--output_file', type=str, default='output.hdf5')
     parser.add_argument('--max_path', type=int, default=1000)
