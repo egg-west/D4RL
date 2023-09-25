@@ -125,7 +125,7 @@ def rollout(policy, env_name, max_path, num_data, random=False):
         terminals=np.array(data['terminals']).astype(bool),#.astype(np.bool),
         timeouts=np.array(data['timeouts']).astype(bool),#.astype(np.bool),
     )
-    new_data['infos/action_log_probs'] = np.array(data['logprobs']).astype(np.float32)
+    new_data['infos/action_log_probs'] = np.array(data['logprobs'].detach()).astype(np.float32)
     new_data['infos/qpos'] = np.array(data['qpos']).astype(np.float32)
     new_data['infos/qvel'] = np.array(data['qvel']).astype(np.float32)
 
@@ -151,6 +151,7 @@ if __name__ == "__main__":
     policy = None
     if not args.random:
         policy = load(args.pklfile)
+    policy.to("CPU")
     data = rollout(policy, args.env, max_path=args.max_path, num_data=args.num_data, random=args.random)
 
     hfile = h5py.File(args.output_file, 'w')
