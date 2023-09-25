@@ -103,7 +103,7 @@ def rollout(policy, env_name, max_path, num_data, random=False):
         traj_data['rewards'].append(rew)
         traj_data['terminals'].append(terminal)
         traj_data['timeouts'].append(timeout)
-        traj_data['logprobs'].append(logprob)
+        traj_data['logprobs'].append(logprob.detach())
         traj_data['qpos'].append(qpos)
         traj_data['qvel'].append(qvel)
 
@@ -125,7 +125,7 @@ def rollout(policy, env_name, max_path, num_data, random=False):
         terminals=np.array(data['terminals']).astype(bool),#.astype(np.bool),
         timeouts=np.array(data['timeouts']).astype(bool),#.astype(np.bool),
     )
-    new_data['infos/action_log_probs'] = np.array(data['logprobs'].detach()).astype(np.float32)
+    new_data['infos/action_log_probs'] = np.array(data['logprobs']).astype(np.float32)
     new_data['infos/qpos'] = np.array(data['qpos']).astype(np.float32)
     new_data['infos/qvel'] = np.array(data['qvel']).astype(np.float32)
 
