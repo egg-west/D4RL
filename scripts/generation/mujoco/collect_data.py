@@ -141,7 +141,7 @@ if __name__ == "__main__":
     parser.add_argument('--pklfile', type=str, default=None)
     parser.add_argument('--output_file', type=str, default='output.hdf5')
     parser.add_argument('--max_path', type=int, default=1000)
-    parser.add_argument('--num_data', type=int, default=10000)
+    parser.add_argument('--num_data', type=int, default=1000000)
     parser.add_argument('--random', action='store_true')
     parser.add_argument('--seed', type=int, default=0)
     args = parser.parse_args()
